@@ -48,11 +48,11 @@
             console.log("Pointer events exists");
             clickMe.addEventListener("touchstart", function (evt) {
                 console.log(clickMe.value + " button has been touched");
-                 textMsg.innerHTML += "button has been touched on mobile";
+                 textMsg.innerHTML += "button has been touched on mobile " + "<br>";
                 if (evt.touches && evt.touches.length > 1) {
-                    textMsg.innerHTML += "event touches initiated";
+                    textMsg.innerHTML += "event touches initiated " + " <br>" ;
                 } else {
-                    textMsg.innerHTML = "One touch or less initiated currently";
+                    textMsg.innerHTML = "One touch or less initiated currently "  + " <br>";
                 }
             })
 
