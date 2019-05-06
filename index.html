@@ -14,10 +14,19 @@
             color: white;
         }
 
+        textarea#feedback {
+            text-align: center;
+            margin: auto;
+            display: block;
+            width: 90%;
+            background-color: skyblue;
+        }
+
         #clickMe {
             background-color: skyblue;
 
         }
+
         #hoverMe {
             background-color: blueviolet;
         }
@@ -29,29 +38,32 @@
     <div class="btnSection">
         <input type="button" id="clickMe" class="buttons" value="Click Me">
         <input type="button" id="hoverMe" class="buttons" value="Hover Me">
+        <textarea rows="5" id="feedback" name="description"></textarea>
     </div>
 
     <script>
-         let clickMe = document.getElementById("clickMe");
-        if(window.PointerEvent){
+        let clickMe = document.getElementById("clickMe");
+        let textMsg = document.getElementById("feedback");
+        if (window.PointerEvent) {
             console.log("Pointer events exists");
-            clickMe.addEventListener("touchstart", function(evt){
+            clickMe.addEventListener("touchstart", function (evt) {
                 console.log(clickMe.value + " button has been touched");
-                 if (evt.touches && evt.touches.length > 1) {
-                    console.log("event touches initiated");
+                 textMsg.innerHTML += "button has been touched on mobile";
+                if (evt.touches && evt.touches.length > 1) {
+                    textMsg.innerHTML += "event touches initiated";
                 } else {
-                    console.log("One touch or less initiated currently");
+                    textMsg.innerHTML = "One touch or less initiated currently";
                 }
             })
 
-             clickMe.addEventListener("touchmove", function () {
+            clickMe.addEventListener("touchmove", function () {
                 console.log(clickMe.value + " button has been moved");
             })
 
         } else {
             console.log("Pointer events do not exist");
         }
-       
+
     </script>
 
 </body>
