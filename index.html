@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .buttons {
+            width: 50%;
+            height: 40px;
+            height: 50px;
+            display: block;
+            margin: 5% auto;
+            color: white;
+        }
+
+        #clickMe {
+            background-color: skyblue;
+
+        }
+        #hoverMe {
+            background-color: blueviolet;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="btnSection">
+        <input type="button" id="clickMe" class="buttons" value="Click Me">
+        <input type="button" id="hoverMe" class="buttons" value="Hover Me">
+    </div>
+
+    <script>
+         let clickMe = document.getElementById("clickMe");
+        if(window.PointerEvent){
+            console.log("Pointer events exists");
+            clickMe.addEventListener("touchstart", function(evt){
+                console.log(clickMe.value + " button has been touched");
+                 if (evt.touches && evt.touches.length > 1) {
+                    console.log("event touches initiated");
+                } else {
+                    console.log("One touch or less initiated currently");
+                }
+            })
+
+             clickMe.addEventListener("touchmove", function () {
+                console.log(clickMe.value + " button has been moved");
+            })
+
+        } else {
+            console.log("Pointer events do not exist");
+        }
+       
+    </script>
+
+</body>
+
+</html>
