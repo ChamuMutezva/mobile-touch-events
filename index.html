@@ -38,30 +38,103 @@
     <div class="btnSection">
         <input type="button" id="clickMe" class="buttons" value="Click Me">
         <input type="button" id="hoverMe" class="buttons" value="Hover Me">
-        <textarea rows="5" id="feedback" name="description"></textarea>
+        <textarea rows="10" id="feedback" name="description"></textarea>
     </div>
+    <ul class="pointerMsg">
+    </ul>
 
     <script>
         let clickMe = document.getElementById("clickMe");
         let textMsg = document.getElementById("feedback");
+
+        let pointerMessage = document.querySelector(".pointerMsg");
+
+        let li = document.createElement("li");
+        li.setAttribute("class", "liMsg");
+        li.textContent = "List message";
+                
+        //check for pointer events 
         if (window.PointerEvent) {
+            let point = {};
+            pointerMessage.append(li);
             console.log("Pointer events exists");
-            clickMe.addEventListener("touchstart", function (evt) {
-                console.log(clickMe.value + " button has been touched");
-                 textMsg.innerHTML += "button has been touched on mobile " + "<br>";
+            //touchstart initiated using pointer events
+            clickMe.addEventListener("pointerdown", function (evt) {
+                 evt.target.setPointerCapture(evt.pointerId);
+                 console.log(evt.pointerId);
+                console.log(clickMe.value + " pointerdown is in use here");
+
+                point.x = evt.clientX;
+                point.y = evt.clientY;
+                console.log(point.x);
+                console.log(point.y);
+                textMsg.innerHTML += "pointer is in use on mobile here " + point.x;
+                li.textContent = point.x;
                 if (evt.touches && evt.touches.length > 1) {
-                    textMsg.innerHTML += "event touches initiated " + " <br>" ;
+                    console.log("event touches initiated , POINTERDOWN , 2")
+                    textMsg.innerHTML += "event touches initiated , POINTERDOWN , 2";
                 } else {
-                    textMsg.innerHTML = "One touch or less initiated currently "  + " <br>";
+                    console.log("One touch or less initiated currently , POINTERDOWN")
+                    textMsg.innerHTML = "One touch or less initiated currently , POINTERDOWN";
                 }
             })
+            //pointermove initiated
+            clickMe.addEventListener("pointermove", function (evt) {
+                point.x = evt.clientX;
+                point.y = evt.clientY;
+                textMsg.innerHTML = " pointer in motion, POINTERMOVE in action "  + point.x;
+                console.log(clickMe.value + " pointer in motion, POINTERMOVE in action");
+            })
 
-            clickMe.addEventListener("touchmove", function () {
-                console.log(clickMe.value + " button has been moved");
+            //pointerup initiated
+            clickMe.addEventListener("pointerup", function (evt) {
+                textMsg.innerHTML = " end of pointer event, POINTERUP, up"
+                console.log(clickMe.value + " end of pointer event, POINTERUP, up");
+            })
+
+
+            //pointer cancel initiated
+            clickMe.addEventListener("pointercancel", function (evt) {
+                textMsg.innerHTML = " pointercancel event cancelled, POINTERCANCEL, cancel";
+                console.log(clickMe.value + " pointercancel event cancelled, POINTERCANCEL, cancel");
             })
 
         } else {
+            //add touch events
+             pointerMessage.append(li);
             console.log("Pointer events do not exist");
+             console.log("use touch events instead");
+
+             clickMe.addEventListener("touchstart", function (evt) {
+                console.log(clickMe.value + " touchstart is in use");
+                textMsg.innerHTML += "touchstart is in use on mobile ";
+                if (evt.touches && evt.touches.length > 1) {
+                    console.log("event touches initiated , TOUCHSTART , 2")
+                    textMsg.innerHTML += "event touches initiated , TOUCHSTART , 2";
+                } else {
+                    console.log("One touch or less initiated currently , TOUCHSTART")
+                    textMsg.innerHTML = "One touch or less initiated currently , TOUCHSTART";
+                }
+            })
+            //touchmove initiated
+            clickMe.addEventListener("touchmove", function () {
+                textMsg.innerHTML = " button has been moved, TOUCHMOVE"
+                console.log(clickMe.value + " button has been moved, TOUCHMOVE");
+            })
+
+            //touchend initiated
+            clickMe.addEventListener("touchend", function () {
+                textMsg.innerHTML = " end of touch event, TOUCHEND end"
+                console.log(clickMe.value + " end of touch event, TOUCHEND end");
+            })
+
+
+            //touchcancel initiated
+            clickMe.addEventListener("touchcancel", function () {
+                textMsg.innerHTML = " touch event cancelled, TOUCHCANCEL, cancel";
+                console.log(clickMe.value + " touch event cancelled, TOUCHCANCEL");
+            })
+
         }
 
     </script>
