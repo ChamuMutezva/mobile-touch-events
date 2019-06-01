@@ -44,11 +44,7 @@
             background-color: #0039A8;
         }
 
-        #myDiv {
-            width: 50px;
-            height: 50px;
-            background-color: brown;
-        }
+        
     </style>
 
 </head>
@@ -61,7 +57,7 @@
     </div>
     <ul class="pointerMsg">
     </ul>
-    <div id="myDiv"></div>
+    <div id="nextPage"><a href="main.html">Main Page</a></div>
 
     <script>
         let clickMe = document.getElementById("clickMe");
@@ -72,15 +68,6 @@
         let li = document.createElement("li");
         li.setAttribute("class", "liMsg");
         li.textContent = "List message";
-
-        let obj = document.getElementById("myDiv");
-        obj.addEventListener("touchmove", function (event) {
-            if (event.targetTouches.length == 1) {
-                let touch = event.targetTouches[0];
-                obj.style.left = touch.pageX + "px";
-                obj.style.top = touch.pageY + "px";
-            }
-        }, false);
 
         //check for pointer events 
         if (window.PointerEvent) {
@@ -133,6 +120,7 @@
             pointerMessage.append(li);
             console.log("Pointer events do not exist");
             console.log("use touch events instead");
+            
 
             clickMe.addEventListener("touchstart", function (evt) {
                 console.log(clickMe.value + " touchstart is in use");
