@@ -31,18 +31,24 @@
             background-color: blueviolet;
         }
 
-        #hoverMe:hover{
+        #hoverMe:hover {
             background-color: #296CDB;
         }
 
-        #hoverMe:focus{
+        #hoverMe:focus {
             background-color: #0F52C1;
             outline: 0;
         }
 
         #hoverMe:active {
-  background-color: #0039A8;
-}
+            background-color: #0039A8;
+        }
+
+        #myDiv {
+            width: 50px;
+            height: 50px;
+            background-color: brown;
+        }
     </style>
 
 </head>
@@ -55,17 +61,27 @@
     </div>
     <ul class="pointerMsg">
     </ul>
+    <div id="myDiv"></div>
 
     <script>
         let clickMe = document.getElementById("clickMe");
         let textMsg = document.getElementById("feedback");
-
+        let hoverme = document.getElementById("hoverMe");
         let pointerMessage = document.querySelector(".pointerMsg");
 
         let li = document.createElement("li");
         li.setAttribute("class", "liMsg");
         li.textContent = "List message";
-                
+
+        let obj = document.getElementById("myDiv");
+        obj.addEventListener("touchmove", function (event) {
+            if (event.targetTouches.length == 1) {
+                let touch = event.targetTouches[0];
+                obj.style.left = touch.pageX + "px";
+                obj.style.top = touch.pageY + "px";
+            }
+        }, false);
+
         //check for pointer events 
         if (window.PointerEvent) {
             let point = {};
@@ -73,10 +89,10 @@
             console.log("Pointer events exists");
             //touchstart initiated using pointer events
             clickMe.addEventListener("pointerdown", function (evt) {
-                 evt.target.setPointerCapture(evt.pointerId);
-                 console.log(evt.pointerId);
+                evt.target.setPointerCapture(evt.pointerId);
+                console.log(evt.pointerId);
                 console.log(clickMe.value + " pointerdown is in use here");
-
+                hoverme.style.left = "500px";
                 point.x = evt.clientX;
                 point.y = evt.clientY;
                 console.log(point.x);
@@ -95,7 +111,7 @@
             clickMe.addEventListener("pointermove", function (evt) {
                 point.x = evt.clientX;
                 point.y = evt.clientY;
-                textMsg.innerHTML = " pointer in motion, POINTERMOVE in action "  + point.x;
+                textMsg.innerHTML = " pointer in motion, POINTERMOVE in action " + point.x;
                 console.log(clickMe.value + " pointer in motion, POINTERMOVE in action");
             })
 
@@ -114,11 +130,11 @@
 
         } else {
             //add touch events
-             pointerMessage.append(li);
+            pointerMessage.append(li);
             console.log("Pointer events do not exist");
-             console.log("use touch events instead");
+            console.log("use touch events instead");
 
-             clickMe.addEventListener("touchstart", function (evt) {
+            clickMe.addEventListener("touchstart", function (evt) {
                 console.log(clickMe.value + " touchstart is in use");
                 textMsg.innerHTML += "touchstart is in use on mobile ";
                 if (evt.touches && evt.touches.length > 1) {
