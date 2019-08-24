@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,26 +11,54 @@
             background-color: brown;
             margin: auto;
         }
+        #clickMe {
+            background-color: skyblue;
+        }
+
+        .buttons {
+            width: 50%;
+            height: 40px;
+            height: 50px;
+            display: block;
+            margin: 5% auto;
+            color: white;
+            /*transform: translateX(130px);*/
+        }
     </style>
 
 </head>
 
 <body>
-    <div id="myDiv"></div>
+    <input type="button" id="clickMe" class="buttons" value="Click Me">
+    <div id="myDiv" draggable="true"></div>
     <div id="nextPage"><a href="index.html">Index Page</a></div>
 
     <script>       
-        let obj = document.getElementById("myDiv");
-        console.log(obj);
+        let btn = document.getElementById("clickMe");
+        let myDiv = document.getElementById("myDiv");
+        let current = 0;
+        let step = 5;
+        btn.addEventListener("click", function(){ 
+             current += step;
+            let transX = `translateX(${current}px)`         
+            console.log(btn);
+            console.log(myDiv);
+            myDiv.style.transform = transX;
+           
+        })
+       
+        /*
         obj.addEventListener("touchmove", function (event) {
+            obj.draggable();    
             if (event.targetTouches.length == 1) {
-
                 let touch = event.targetTouches[0];
                 obj.style.left = touch.pageX + "px";
                 obj.style.top = touch.pageY + "px";
                 console.log("div touch initiated");
             }
-        }, false);       
+        }, false);  */
+
+        
  
     </script>
 </body>
